@@ -1,0 +1,31 @@
+<mvc:View
+    controllerName="walkthrough.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Shell id="mainshell01">
+        <App
+            id="mainapp"
+            class="myAppDemoWT"
+        >
+            <pages>
+                <Page
+                    id="page"
+                    title="{i18n>title}"
+                >
+                    <content>
+                        <mvc:XMLView
+                            id="mainnested01"
+                            viewName="walkthrough.view.HelloPanel"
+                        />
+                        <mvc:XMLView
+                            id="mainInvoiceList01"
+                            viewName="walkthrough.view.InvoiceList"
+                        />
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>

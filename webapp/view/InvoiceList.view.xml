@@ -1,0 +1,67 @@
+<mvc:View
+    controllerName="walkthrough.controller.InvoiceList"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+>
+    <List
+        id="invoiceList"
+        headerText="{i18n>invoiceListTitle}"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        items="{
+         path : 'invoice>/Invoices',
+         sorter : {
+                path : 'ShipperName',
+                group : true
+            }
+      }"
+    >
+        <headerToolbar>
+            <Toolbar id="toolBar">
+                <Title
+                    id="title01"
+                    text="{i18n>invoiceListTitle}"
+                />
+                <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                <SearchField
+                    id="searchField"
+                    width="50%"
+                    liveChange=".onLiveChange"
+                    search=".onFilterInvoices"
+                />
+            </Toolbar>
+        </headerToolbar>
+        <items>
+            <ObjectListItem
+                id="invoiceListItem"
+                title="{invoice>Quantity} x {invoice>ProductName}"
+                number="{
+                    parts: [
+                        'invoice>ExtendedPrice',
+                        'view>/currency'
+                    ],
+                    type: 'sap.ui.model.type.Currency',
+                    formatOptions: {
+                        showMeasure: false
+                    }
+                }"
+                numberUnit="{view>/currency}"
+                numberState="{= ${invoice>ExtendedPrice} > 50 ? 'Error' : 'Success' }"
+            >
+                <firstStatus>
+                    <ObjectStatus
+                        id="objectStatus01"
+                        core:require="{
+                            Formatter: 'walkthrough/model/formatter'
+                        }"
+                        text="{
+                            path: 'invoice>Status',
+                            formatter: 'Formatter.statusText.bind($controller)'
+                        }"
+                    />
+                </firstStatus>
+            </ObjectListItem>
+        </items>
+    </List>
+</mvc:View>
